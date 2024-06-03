@@ -36,3 +36,4 @@ yarn-error.log*
 next-env.d.ts
 notes.local
 bun.lockb
+package-lock.json
