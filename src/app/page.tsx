@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { Subheading } from "@/components/ui/heading";
 import { Strong, Text, TextLink } from "@/components/ui/text";
+import { createClient } from "@/utils/client";
+import { useEffect, useState } from "react";
 
 const options = [
   {
@@ -15,9 +17,22 @@ const options = [
 ];
 
 export default function Home() {
+  const supabase = createClient();
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      setIsSignedIn(!!session);
+    }
+
+    checkSession();
+  }, []);
+
   return (
     <div className="flex flex-col justify-center h-full">
-      <PageHeading />
+      <PageHeading showButton={!isSignedIn} />
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {options.map(({ label, description, href }) => (
           <div key={label} className="flex flex-col p-4 bg-zinc-200 dark:bg-zinc-800 ring-2 ring-zinc-300 dark:ring-zinc-700 rounded-lg">

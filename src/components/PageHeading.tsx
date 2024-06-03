@@ -14,7 +14,6 @@ export default function PageHeading({
   readonly description?: string;
   readonly showButton?: boolean;
 }): JSX.Element {
-
   return (
     <>
       <div className="flex w-full flex-wrap items-center justify-between gap-4" >
