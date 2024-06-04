@@ -30,6 +30,7 @@ export default function SignInButton() {
           provider: "github",
           options: {
             scopes: "admin:org,repo",
+            redirectTo: window.location.origin ?? "https://extragithub.tools"
           }
         });
 
