@@ -15,7 +15,7 @@ import { Sidebar, SidebarBody, SidebarItem, SidebarSection } from '@/components/
 import {
   ArrowRightStartOnRectangleIcon,
   Cog8ToothIcon,
-  LightBulbIcon,
+  EnvelopeIcon,
   ShieldCheckIcon,
   UserIcon,
 } from '@heroicons/react/16/solid'
@@ -129,9 +129,9 @@ export function Navigation({
                   <ShieldCheckIcon />
                   <DropdownLabel>Privacy policy</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="/feedback">
-                  <LightBulbIcon />
-                  <DropdownLabel>Share feedback</DropdownLabel>
+                <DropdownItem href="/contact">
+                  <EnvelopeIcon />
+                  <DropdownLabel>Contact</DropdownLabel>
                 </DropdownItem>
                 <SignOutButton />
               </DropdownMenu>
