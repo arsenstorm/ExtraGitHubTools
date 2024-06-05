@@ -6,10 +6,10 @@ import PageHeading from "@/components/PageHeading";
 import { Strong, Text, TextLink } from '@/components/ui/text';
 import { Divider } from '@/components/ui/divider';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { listRepositories } from "@/app/actions/repositories/list";
+import { listRepositories } from "@/actions/repositories/list";
 import { Checkbox } from '@headlessui/react'
 import { Button } from "@/components/ui/button";
-import { transferRepositories } from "@/app/actions/repositories/transfer";
+import { transferRepositories } from "@/actions/repositories/transfer";
 import RequireSignIn from "@/components/RequireSignIn";
 import { toast } from "sonner";
 

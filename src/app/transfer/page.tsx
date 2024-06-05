@@ -1,7 +1,7 @@
 "use client";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { listOrganisations } from "@/app/actions/orgs/list";
+import { listOrganisations } from "@/actions/orgs/list";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/client";
 import PageHeading from "@/components/PageHeading";

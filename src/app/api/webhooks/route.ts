@@ -17,11 +17,11 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const signature = headers.get("X-Hub-Signature-256");
+  const signature = headers.get("X-Hub-Signature-256") ?? "";
   const hmac = crypto.createHmac("sha256", process.env.GITHUB_WEBHOOK_SECRET!);
   const digest = "sha256=" + hmac.update(JSON.stringify(body)).digest("hex");
 
-  if (!crypto.timingSafeEqual(Buffer.from(signature!), Buffer.from(digest))) {
+  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(digest))) {
     return NextResponse.json(
       {
         accepted: false,
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log(body);
+  console.log(body); // maybe we'll need this at some point
 
   return NextResponse.json(
     {
