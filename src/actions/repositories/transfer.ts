@@ -42,11 +42,17 @@ export async function transferRepositories({
 	try {
 		const responses = await Promise.all(promises);
 
+		const results = responses.map((response) => ({
+			status: response.status,
+			statusText: response.statusText,
+			ok: response.ok,
+		}));
+
 		return {
 			token_expired: false,
 			is_error: false,
 			error: null,
-			data: responses,
+			data: results,
 		};
 	} catch (error) {
 		let errorMessage = "An error occurred while transferring repositories.";

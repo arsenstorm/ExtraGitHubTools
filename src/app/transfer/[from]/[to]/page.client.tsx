@@ -59,31 +59,47 @@ function MoveRepositories({
 	readonly to: string;
 }): React.ReactNode {
 	const { token } = useAuth();
+	const [isLoading, setIsLoading] = useState(true);
 	const [repositories, setRepositories] = useState<any[] | null>(null);
 	const [selectedRepos, setSelectedRepos] = useState<any[]>([]);
 
-	useEffect(() => {
-		async function getListOfRepositories() {
-			const response = await listRepositories({
-				account: from,
-				token: token ?? "",
-			});
-			if (response.token_expired === true) {
-				toast.error("Session expired. Please sign in again.");
-				return;
-			}
+	async function getListOfRepositories({
+		account,
+		token,
+	}: {
+		readonly account: string;
+		readonly token: string;
+	}) {
+		setIsLoading(true);
 
-			if (response.is_error === true) {
-				console.error(response.error);
-				toast.error(
-					response?.error ?? "Failed to fetch repositories. Please try again.",
-				);
-			} else {
-				setRepositories(response.data);
-			}
+		const response = await listRepositories({
+			account,
+			token,
+		});
+		if (response.token_expired === true) {
+			toast.error("Session expired. Please sign in again.");
+			setIsLoading(false);
+			return;
 		}
 
-		getListOfRepositories();
+		if (response.is_error === true) {
+			console.error(response.error);
+			toast.error(
+				response?.error ?? "Failed to fetch repositories. Please try again.",
+			);
+		} else {
+			setRepositories(response.data);
+		}
+
+		setIsLoading(false);
+	}
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: no need
+	useEffect(() => {
+		getListOfRepositories({
+			account: from,
+			token: token ?? "",
+		});
 	}, [from, token]);
 
 	function updateSelectedRepos(prev: string[], repoName: string): string[] {
@@ -92,6 +108,14 @@ function MoveRepositories({
 		}
 		return [...prev, repoName];
 	}
+
+	const refresh = () => {
+		setSelectedRepos([]);
+		getListOfRepositories({
+			account: from,
+			token: token ?? "",
+		});
+	};
 
 	return (
 		<div className="mb-32">
@@ -106,7 +130,7 @@ function MoveRepositories({
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{repositories ? (
+					{!isLoading && repositories ? (
 						repositories?.map((repo) => (
 							<TableRow key={repo.id}>
 								<TableCell>
@@ -154,7 +178,7 @@ function MoveRepositories({
 					) : (
 						<TableRow>
 							<TableCell colSpan={5} className="text-center">
-								No repositories found.
+								{isLoading ? "Loading..." : "No repositories found."}
 							</TableCell>
 						</TableRow>
 					)}
@@ -165,6 +189,7 @@ function MoveRepositories({
 					from={from}
 					to={to}
 					selectedRepos={selectedRepos}
+					refresh={refresh}
 				/>
 			)}
 		</div>
@@ -175,10 +200,12 @@ function TransferConfirmation({
 	from,
 	to,
 	selectedRepos,
+	refresh = () => {},
 }: {
 	readonly from: string;
 	readonly to: string;
 	readonly selectedRepos: string[];
+	refresh?: () => void;
 }): React.ReactNode {
 	const { token } = useAuth();
 
@@ -211,7 +238,11 @@ function TransferConfirmation({
 							toast.error(
 								error ?? "Failed to transfer repositories. Please try again.",
 							);
+							return;
 						}
+
+						toast.success("Repositories transferred successfully!");
+						refresh();
 					}}
 				>
 					Transfer {selectedRepos.length} Repositories
