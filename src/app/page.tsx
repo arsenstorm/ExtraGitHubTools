@@ -45,25 +45,6 @@ export default function Home() {
 					</Text>
 				</div>
 				<div>
-					<Subheading level={2}>Important Information</Subheading>
-					<Text>
-						I don’t store any of your data including the personal access token
-						you use to sign in with GitHub.
-					</Text>
-					<Text>
-						Since I don’t store your personal access token, you’ll need to sign
-						in every hour to keep using the tool as it’s stored along with your
-						session.
-					</Text>
-					<Text>
-						The code is <Strong>100% open-source</Strong> and you can{" "}
-						<TextLink href="https://github.com/arsenstorm/ExtraGitHubTools">
-							find it here on GitHub
-						</TextLink>
-						.
-					</Text>
-				</div>
-				<div>
 					<Subheading level={2}>More tools</Subheading>
 					<Text>
 						If you have any ideas for tools that you’d like to see, send me an
