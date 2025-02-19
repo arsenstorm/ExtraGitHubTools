@@ -52,9 +52,7 @@ function GitHubProfile({
 
 	return (
 		<>
-			<DropdownItem
-				href={`https://github.com/${session?.userId}`}
-			>
+			<DropdownItem href={`https://github.com/${session?.userId}`}>
 				<UserIcon />
 				<DropdownLabel>My GitHub Profile</DropdownLabel>
 			</DropdownItem>
@@ -100,10 +98,11 @@ export function Navigation({
 	children,
 }: {
 	readonly children: React.ReactNode;
-}): JSX.Element {
+}): React.ReactNode {
 	const { data } = authClient.useSession();
 
 	const session = data?.session;
+	const user = data?.user;
 
 	return (
 		<StackedLayout
@@ -120,11 +119,11 @@ export function Navigation({
 					<NavbarSection>
 						<Dropdown>
 							<DropdownButton as={NavbarItem}>
-								{/*<Avatar
-                  src={session?.user?.user_metadata?.avatar_url}
-                  initials={session?.user?.user_metadata?.avatar_url ? undefined : "?"}
-                  square
-                />*/}
+								<Avatar
+									src={user?.image}
+									initials={user?.image ? undefined : "?"}
+									square
+								/>
 							</DropdownButton>
 							<DropdownMenu className="min-w-64">
 								<GitHubProfile session={session} />

@@ -12,7 +12,7 @@ export default function PageHeading({
 }: Readonly<{
 	readonly title?: string;
 	readonly description?: string;
-}>): JSX.Element {
+}>): React.ReactNode {
 	const { token, isLoading } = useAuth();
 	const showButton = !token || token?.length === 0;
 

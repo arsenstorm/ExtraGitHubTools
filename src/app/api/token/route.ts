@@ -9,7 +9,7 @@ import { auth } from "@/auth";
 import { Pool } from "pg";
 
 export async function GET() {
-	const headers = _headers();
+	const headers = await _headers();
 
 	const session = await auth.api.getSession({
 		headers,
