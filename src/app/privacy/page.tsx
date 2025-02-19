@@ -207,7 +207,6 @@ export default function PrivacyPage() {
       <PageHeading
         title="Privacy Policy"
         description="Privacy is important. This is what we do with your data."
-        showButton={false}
       />
       <div className="prose dark:prose-invert">
         <Markdown>
