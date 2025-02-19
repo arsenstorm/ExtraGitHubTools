@@ -57,7 +57,9 @@ function GitHubProfile({
 				<UserIcon />
 				<DropdownLabel>My GitHub Profile</DropdownLabel>
 			</DropdownItem>
-			<DropdownItem href="https://github.com/settings/installations">
+			<DropdownItem
+				href={`https://github.com/settings/connections/applications/${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`}
+			>
 				<Cog8ToothIcon />
 				<DropdownLabel>GitHub Installation Settings</DropdownLabel>
 			</DropdownItem>

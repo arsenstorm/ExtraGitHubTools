@@ -13,7 +13,7 @@ export const auth = betterAuth({
 	},
 	socialProviders: {
 		github: {
-			clientId: process.env.GITHUB_CLIENT_ID ?? "",
+			clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID ?? "",
 			clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
 			scope: ["admin:org", "repo"],
 		},
