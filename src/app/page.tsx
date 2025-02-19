@@ -40,8 +40,26 @@ export default function Home() {
 					<Subheading level={2}>About this project</Subheading>
 					<Text>
 						I started this project in open-source because I needed a tool that
-						can help me transfer repositories between organizations and personal
+						can help me transfer repositories between organisations and personal
 						accounts and one was not readily available.
+					</Text>
+				</div>
+				<div>
+					<Subheading level={2}>Important Information</Subheading>
+					<Text>
+						When you sign in with GitHub, your personal access token{" "}
+						<Strong>is stored</Strong>.
+					</Text>
+					<Text>
+						You can delete your data <Strong>at any time</Strong> via the{" "}
+						<Strong>“delete my account”</Strong> button.
+					</Text>
+					<Text>
+						The code is <Strong>100% open-source</Strong> and you can{" "}
+						<TextLink href="https://github.com/arsenstorm/ExtraGitHubTools">
+							find it here on GitHub
+						</TextLink>
+						.
 					</Text>
 				</div>
 				<div>

@@ -28,6 +28,7 @@ import {
 	Cog8ToothIcon,
 	EnvelopeIcon,
 	ShieldCheckIcon,
+	TrashIcon,
 	UserIcon,
 } from "@heroicons/react/16/solid";
 import { toast } from "sonner";
@@ -65,32 +66,39 @@ function GitHubProfile({
 	);
 }
 
-function SignOutButton({
-	session,
-}: {
-	readonly session?: Session | null;
-}) {
-	if (!session) {
-		return null;
-	}
-
+function DeleteMyAccountButton() {
 	return (
-		<>
-			<DropdownDivider />
-			<DropdownItem
-				onClick={async () => {
-					const { error } = await authClient.signOut();
+		<DropdownItem
+			onClick={async () => {
+				const { error } = await authClient.deleteUser();
 
-					if (error) {
-						console.error(error);
-						toast.error("Failed to sign out. Please try again.");
-					}
-				}}
-			>
-				<ArrowRightStartOnRectangleIcon />
-				<DropdownLabel>Sign out</DropdownLabel>
-			</DropdownItem>
-		</>
+				if (error) {
+					console.error(error);
+					toast.error("Failed to delete your account. Please try again.");
+				}
+			}}
+		>
+			<TrashIcon />
+			<DropdownLabel>Delete my Account</DropdownLabel>
+		</DropdownItem>
+	);
+}
+
+function SignOutButton() {
+	return (
+		<DropdownItem
+			onClick={async () => {
+				const { error } = await authClient.signOut();
+
+				if (error) {
+					console.error(error);
+					toast.error("Failed to sign out. Please try again.");
+				}
+			}}
+		>
+			<ArrowRightStartOnRectangleIcon />
+			<DropdownLabel>Sign out</DropdownLabel>
+		</DropdownItem>
 	);
 }
 
@@ -135,6 +143,8 @@ export function Navigation({
 									<EnvelopeIcon />
 									<DropdownLabel>Contact</DropdownLabel>
 								</DropdownItem>
+								<DropdownDivider />
+								<DeleteMyAccountButton />
 								<SignOutButton />
 							</DropdownMenu>
 						</Dropdown>
