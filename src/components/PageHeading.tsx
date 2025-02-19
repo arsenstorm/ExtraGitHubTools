@@ -13,7 +13,7 @@ export default function PageHeading({
 	readonly title?: string;
 	readonly description?: string;
 }>): JSX.Element {
-	const { token } = useAuth();
+	const { token, isLoading } = useAuth();
 	const showButton = !token || token?.length === 0;
 
 	return (
@@ -25,7 +25,7 @@ export default function PageHeading({
 				</div>
 				{showButton && (
 					<div className="flex gap-4">
-						<SignInButton />
+						<SignInButton disabled={isLoading} />
 					</div>
 				)}
 			</div>
