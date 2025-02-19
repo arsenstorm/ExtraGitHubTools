@@ -180,6 +180,8 @@ function TransferConfirmation({
 	readonly to: string;
 	readonly selectedRepos: string[];
 }): React.ReactNode {
+	const { token } = useAuth();
+
 	return (
 		<div className="z-50 backdrop-blur-md bg-zinc-950/5 dark:bg-zinc-50/5 fixed bottom-4 max-w-sm mx-auto left-0 right-0 rounded-lg p-4">
 			<div className="flex flex-col justify-center items-center gap-4 text-center">
@@ -193,6 +195,7 @@ function TransferConfirmation({
 					onClick={async () => {
 						const { is_error, error, token_expired } =
 							await transferRepositories({
+								token: token ?? "",
 								from,
 								to,
 								repositories: selectedRepos,
