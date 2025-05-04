@@ -51,8 +51,6 @@ export async function GET(request: Request) {
 	}
 
 	try {
-		console.log(`Analyzing ${org}/${repo} using GitHub API...`);
-
 		// Initialize Octokit with the user's token
 		const octokit = new Octokit({ auth: token });
 
@@ -90,9 +88,6 @@ async function analyzeRepositoryWithAPI(
 	// If GitHub returns 202, it means the stats are being calculated
 	// We need to wait and retry
 	if (!contributorsData || !Array.isArray(contributorsData)) {
-		console.log(
-			"GitHub API returned 202, waiting for stats to be calculated...",
-		);
 		// Wait 2 seconds and try again
 		await new Promise((resolve) => setTimeout(resolve, 2000));
 		return analyzeRepositoryWithAPI(octokit, owner, repo);
