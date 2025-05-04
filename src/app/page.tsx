@@ -1,18 +1,35 @@
 "use client";
 
 import PageHeading from "@/components/PageHeading";
-import { Button } from "@/components/ui/button";
+import { Button, type Colors } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { Subheading } from "@/components/ui/heading";
 import { Strong, Text, TextLink } from "@/components/ui/text";
-import { useState } from "react";
 
-const options = [
+const options: {
+	label: string;
+	description: string;
+	link: { href: string; label: string; color: Colors };
+}[] = [
 	{
 		label: "Bulk Transfer Repositories",
 		description:
 			"Move your repositories in bulk between organizations and personal accounts.",
-		href: "/transfer",
+		link: {
+			href: "/transfer",
+			label: "Bulk Transfer Repositories",
+			color: "cyan",
+		},
+	},
+	{
+		label: "Commit Fame",
+		description:
+			"See how your commits compare to your colleagues and who's doing more.",
+		link: {
+			href: "/fame",
+			label: "Commit Fame",
+			color: "amber",
+		},
 	},
 ];
 
@@ -21,15 +38,15 @@ export default function Home() {
 		<div className="flex flex-col justify-center h-full">
 			<PageHeading />
 			<main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{options.map(({ label, description, href }) => (
+				{options.map(({ label, description, link }) => (
 					<div
 						key={label}
 						className="flex flex-col p-4 bg-zinc-200 dark:bg-zinc-800 ring-2 ring-zinc-300 dark:ring-zinc-700 rounded-lg"
 					>
 						<Subheading level={3}>{label}</Subheading>
 						<Text>{description}</Text>
-						<Button href={href} color="cyan" className="mt-4">
-							Transfer Repositories
+						<Button href={link.href} color={link.color} className="mt-4">
+							{link.label}
 						</Button>
 					</div>
 				))}

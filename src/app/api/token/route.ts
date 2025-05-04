@@ -1,41 +1,16 @@
 // Next
 import { NextResponse } from "next/server";
-import { headers as _headers } from "next/headers";
 
-// Auth
-import { auth } from "@/auth";
-
-// Database
-import { Pool } from "pg";
+// Actions
+import { getGitHubToken } from "@/actions/token/get";
 
 export async function GET() {
-	const headers = await _headers();
+	const { token, error } = await getGitHubToken();
 
-	const session = await auth.api.getSession({
-		headers,
-	});
-
-	if (!session?.user?.id) {
+	if (error) {
 		return NextResponse.json(
 			{
-				error: "Unauthorized.",
-			},
-			{
-				status: 401,
-			},
-		);
-	}
-
-	const data = await auth.api.listUserAccounts({
-		headers,
-	});
-
-	const account = data?.[0] ?? undefined;
-
-	if (!account) {
-		return NextResponse.json(
-			{
-				error: "No token.",
+				error,
 			},
 			{
 				status: 400,
@@ -43,17 +18,7 @@ export async function GET() {
 		);
 	}
 
-	const pool = new Pool({
-		connectionString: process.env.DATABASE_URL ?? "",
-	});
-
-	// get the token by making a call to the database
-	const token = await pool.query(
-		'SELECT "accessToken" FROM "account" WHERE id = $1 LIMIT 1;',
-		[account?.id],
-	);
-
 	return NextResponse.json({
-		token: token.rows[0].accessToken,
+		token,
 	});
 }

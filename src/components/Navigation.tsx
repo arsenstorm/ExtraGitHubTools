@@ -40,6 +40,7 @@ import type { Session } from "better-auth";
 const navItems = [
 	{ label: "Dashboard", url: "/" },
 	{ label: "Bulk Transfer Repositories", url: "/transfer" },
+	{ label: "Commit Fame", url: "/fame" },
 ];
 
 function GitHubProfile({
